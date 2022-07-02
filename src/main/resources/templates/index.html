@@ -13,11 +13,6 @@
             text-align: center;
         }
 
-        #outerDiv {
-            width: 655px;
-            margin: auto;
-        }
-
         #innerDiv {
             background-color: burlywood;
             margin-right: auto;
@@ -78,7 +73,6 @@
             <td th:utext=${user.getName()}>val</td>
             <td th:utext=${user.getAge()}>val</td>
             <td th:utext=${user.getCountry()}>val</td>
-<!--            <td><a th:href="@{users/{id}(id=${user.getId()})}">Choose</a></td>-->
             <td><a th:href="@{users/{id}(id=${user.getId()})}">Choose</a></td>
         </tr>
 

@@ -2,7 +2,9 @@ package sof.crud.kata312.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +32,7 @@ public class UsersController {
         model.addAttribute("users", userService.index());
         return "index1";
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("admin/users")
     public String index(Model model) {
         model.addAttribute("users", userService.index());
@@ -42,18 +44,20 @@ public class UsersController {
         model.addAttribute("user", userService.show(id));
         return "show";
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("admin/users/new")
     public String newPerson(@ModelAttribute("user") User user) {
 
         return "new";
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping()
     public String create(@ModelAttribute("user") User user) {
         userService.save(user);
         return "redirect:/admin/users";
     }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("admin/users/{id}/edit")
     public String edit(Model model, @PathVariable("id") Long id) {
         User user = userService.get(id);
@@ -64,26 +68,32 @@ public class UsersController {
         return "edit";
     }
 
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PatchMapping("admin/users/{id}")
     public String update(@ModelAttribute("user") User user) {
         userService.update(user);
         return "redirect:/admin/users";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/users/{id}")
     public String delete(@PathVariable("id") Long id) {
         userService.delete(id);
         return "redirect:/admin/users";
     }
 
-    @GetMapping("{username}")
-    @IsUser
-    public String user(@PathVariable("username") String username, Model model) {
-        model.addAttribute("user", userService.show(userService.findByUserName(username).getId()));
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public String currentUserName(Authentication authentication, Model model) {
+        model.addAttribute("user", userService.show(userService.findByUserName(authentication.getName()).getId()));
         return "user";
     }
 
-
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    public String currentAdminName(Authentication authentication, Model model) {
+        model.addAttribute("user", userService.show(userService.findByUserName(authentication.getName()).getId()));
+        return "admin";
+    }
 }
+
+

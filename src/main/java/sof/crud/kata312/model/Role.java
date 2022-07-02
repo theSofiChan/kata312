@@ -17,12 +17,7 @@ public class Role implements GrantedAuthority {
     public Role() {
     }
 
-    public Role(String name) {
-        this.name = name;
-    }
-
     private String name;
-
 
     @Override
     public String toString() {

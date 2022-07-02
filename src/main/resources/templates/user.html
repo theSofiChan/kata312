@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://www.springframework.org/schema/mvc" xmlns:security="http://www.springframework.org/security/tags">
 <style>
 
 </style>
@@ -70,10 +71,10 @@
                 <td th:utext = ${user.getCountry()}>val</td>
                 <td th:utext = ${user.getEmail()}>val</td>
                 <td th:utext = ${user.getPassword()}>val</td>
-
             </tr>
-
         </table>
+
+
     </div>
     <footer><a href="/logout"><input value="Logout"></a></footer>
 </main>

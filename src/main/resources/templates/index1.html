@@ -63,29 +63,15 @@
 </head>
 <body>
 
-<h1>All Users</h1>
-<p>It's empty, and it's ok, press "Create new" to add a new User</p>
+<h1>Log in. It won't work, but LOG IN</h1>
+
 
 <div id="innerDiv">
-    <table border="1">
-        <tr id="topTable">
-            <th>Name</th>
-            <th>Age</th>
-            <th>Country</th>
-            <th>Go to your page</th>
-        </tr>
-        <tr th:each="user : ${users}" id="tableRemaining">
-            <td th:utext=${user.getName()}>val</td>
-            <td th:utext=${user.getAge()}>val</td>
-            <td th:utext=${user.getCountry()}>val</td>
-            <td><a th:href="@{{username}(username=${user.getName()})}">Choose yourself</a></td>
-        </tr>
-
-    </table>
+    <a href="/login"><input value="LOGIN"></a>
 </div>
 <br/>
 <hr/>
-<a href="admin/users"><input value="Log in to admin page"></a>
+
 <footer><a href="/logout"><input value="Logout"></a></footer>
 </body>
 </html>
